@@ -7,10 +7,13 @@ class App {
         this.view = new AppView();
     }
 
-    start() {
-        document
-            .querySelector('.sources')
-            .addEventListener('click', (e) => this.controller.getNews(e, (data) => this.view.drawNews(data)));
+    start(): void {
+        const sources = document.querySelector<HTMLDivElement>('.sources');
+        if (sources) {
+            sources.addEventListener('click', (e) => this.controller.getNews(e, (data) => this.view.drawNews(data)));
+        } else {
+            throw new Error('.sources is not found');
+        }
         this.controller.getSources((data) => this.view.drawSources(data));
     }
 }

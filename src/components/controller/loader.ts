@@ -1,10 +1,16 @@
 import { NewsEndpoint } from '../../types/newsTypes';
 
-type QueryOptions = Record<string, string>;
+interface QueryOptions {
+    apiKey: string;
+    sources: string;
+}
+
+type LoaderOptions = Readonly<Pick<QueryOptions, 'apiKey'>>;
+type RequestOptions = Partial<Pick<QueryOptions, 'sources'>>;
 
 interface RequestParams {
     endpoint: NewsEndpoint;
-    options?: QueryOptions;
+    options?: RequestOptions;
 }
 
 type ResponseCallback<T> = (data: T) => void;
@@ -12,7 +18,7 @@ type ResponseCallback<T> = (data: T) => void;
 class Loader {
     constructor(
         private readonly baseLink: string,
-        private readonly options: QueryOptions
+        private readonly options: LoaderOptions
     ) {}
 
     public getResp<T>(
@@ -34,22 +40,21 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: QueryOptions, endpoint: NewsEndpoint): string {
-        const urlOptions = { ...this.options, ...options };
-        let url = `${this.baseLink}${endpoint}?`;
+    makeUrl(options: RequestOptions, endpoint: NewsEndpoint): string {
+        const params = new URLSearchParams({ apiKey: this.options.apiKey });
 
-        Object.keys(urlOptions).forEach((key) => {
-            url += `${key}=${urlOptions[key]}&`;
-        });
+        if (options.sources !== undefined) {
+            params.set('sources', options.sources);
+        }
 
-        return url.slice(0, -1);
+        return `${this.baseLink}${endpoint}?${params.toString()}`;
     }
 
     public load<T>(
         method: 'GET',
         endpoint: NewsEndpoint,
         callback: ResponseCallback<T>,
-        options: QueryOptions = {}
+        options: RequestOptions = {}
     ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)

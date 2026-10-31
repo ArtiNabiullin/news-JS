@@ -1,4 +1,3 @@
-
 type QueryOptions = Record<string, string>;
 
 interface RequestParams {
@@ -8,9 +7,11 @@ interface RequestParams {
 
 type ResponseCallback<T> = (data: T) => void;
 
-
 class Loader {
-    constructor(private readonly baseLink: string, private readonly options: QueryOptions) {}
+    constructor(
+        private readonly baseLink: string,
+        private readonly options: QueryOptions
+    ) {}
 
     public getResp<T>(
         { endpoint, options = {} }: RequestParams,
@@ -19,7 +20,7 @@ class Loader {
         }
     ): void {
         this.load('GET', endpoint, callback, options);
-    } 
+    }
 
     errorHandler(res: Response): Response {
         if (!res.ok) {
@@ -44,7 +45,7 @@ class Loader {
 
     public load<T>(method: 'GET', endpoint: string, callback: ResponseCallback<T>, options: QueryOptions = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
-            .then(this.errorHandler)    
+            .then(this.errorHandler)
             .then((res) => res.json())
             .then((data) => callback(data))
             .catch((err) => console.error(err));

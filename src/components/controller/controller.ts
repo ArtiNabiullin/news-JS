@@ -12,36 +12,36 @@ class AppController extends AppLoader {
     }
 
     getNews(e: MouseEvent, callback: (data: NewsResponse) => void): void {
-    const container = e.currentTarget;
-    const clickedElement = e.target;
+        const container = e.currentTarget;
+        const clickedElement = e.target;
 
-    if (!(container instanceof HTMLElement) || !(clickedElement instanceof Element)) {
-    return;
-    }
+        if (!(container instanceof HTMLElement) || !(clickedElement instanceof Element)) {
+            return;
+        }
 
-    const sourceItem = clickedElement.closest<HTMLElement>('.source__item');
+        const sourceItem = clickedElement.closest<HTMLElement>('.source__item');
 
-    if (!sourceItem || !container.contains(sourceItem)) {
-        return;
-    }
+        if (!sourceItem || !container.contains(sourceItem)) {
+            return;
+        }
 
-    const sourceId = sourceItem.getAttribute('data-source-id');
+        const sourceId = sourceItem.getAttribute('data-source-id');
 
-    if (!sourceId || container.getAttribute('data-source') === sourceId) {
-        return;
-    }
+        if (!sourceId || container.getAttribute('data-source') === sourceId) {
+            return;
+        }
 
-    container.setAttribute('data-source', sourceId);
+        container.setAttribute('data-source', sourceId);
 
-    super.getResp<NewsResponse>(
-        {
-            endpoint: 'everything',
-            options: {
-                sources: sourceId,
+        super.getResp<NewsResponse>(
+            {
+                endpoint: 'everything',
+                options: {
+                    sources: sourceId,
+                },
             },
-        },
-        callback
-    );
+            callback
+        );
     }
 }
 

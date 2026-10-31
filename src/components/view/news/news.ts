@@ -29,15 +29,12 @@ class News {
                 throw new Error('.news__meta-photo was not found');
             }
 
-            newsMetaPhoto.style.backgroundImage = `url(${
-                item.urlToImage || 'img/news_placeholder.jpg'
-            })`;
+            newsMetaPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
 
             const newsMetaAuthor = newsClone.querySelector<HTMLElement>('.news__meta-author');
 
             if (!newsMetaAuthor) {
                 throw new Error('.news__meta-author was not found');
-                
             }
 
             newsMetaAuthor.textContent = item.author || item.source.name;
@@ -48,11 +45,7 @@ class News {
                 throw new Error('.news__meta-date was not found');
             }
 
-            newsMetaDate.textContent = item.publishedAt
-                .slice(0, 10)
-                .split('-')
-                .reverse()
-                .join('-');
+            newsMetaDate.textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
             const newsDescTitle = newsClone.querySelector<HTMLElement>('.news__description-title');
 
@@ -83,7 +76,7 @@ class News {
             if (!newsUrl) {
                 throw new Error('.news__read-more a was not found');
             }
-            
+
             newsUrl.setAttribute('href', item.url);
 
             fragment.append(newsClone);

@@ -21,7 +21,6 @@ class Sources {
                 throw new Error('Source template is missing required elements');
             }
 
-
             sourceName.textContent = item.name;
             sourceItem.setAttribute('data-source-id', item.id);
 
@@ -33,7 +32,7 @@ class Sources {
         if (!sourcesContainer) {
             throw new Error('Container .sources was not found');
         }
-        
+
         sourcesContainer.append(fragment);
     }
 }

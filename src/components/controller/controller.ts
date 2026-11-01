@@ -1,6 +1,6 @@
 import AppLoader from './appLoader';
 import { NewsEndpoint } from '../../types/newsTypes';
-import type { SourcesResponse, NewsResponse } from '../../types/newsTypes';
+import { isNewsResponse, isSourcesResponse, type NewsResponse, type SourcesResponse } from '../../types/newsTypes';
 
 class AppController extends AppLoader {
     getSources(callback: (data: SourcesResponse) => void): void {
@@ -8,6 +8,7 @@ class AppController extends AppLoader {
             {
                 endpoint: NewsEndpoint.Sources,
             },
+            isSourcesResponse,
             callback
         );
     }
@@ -41,6 +42,7 @@ class AppController extends AppLoader {
                     sources: sourceId,
                 },
             },
+            isNewsResponse,
             callback
         );
     }

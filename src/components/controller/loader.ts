@@ -7,6 +7,7 @@ interface QueryOptions {
 
 type LoaderOptions = Readonly<Pick<QueryOptions, 'apiKey'>>;
 type RequestOptions = Partial<Pick<QueryOptions, 'sources'>>;
+type ResponseValidator<T> = (value: unknown) => value is T;
 
 interface RequestParams {
     endpoint: NewsEndpoint;
@@ -23,11 +24,12 @@ class Loader {
 
     public getResp<T>(
         { endpoint, options = {} }: RequestParams,
+        validateResponse: ResponseValidator<T>,
         callback: ResponseCallback<T> = () => {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load('GET', endpoint, callback, options);
+        this.load('GET', endpoint, callback, validateResponse, options);
     }
 
     errorHandler(res: Response): Response {
@@ -54,12 +56,19 @@ class Loader {
         method: 'GET',
         endpoint: NewsEndpoint,
         callback: ResponseCallback<T>,
+        validateResponse: ResponseValidator<T>,
         options: RequestOptions = {}
     ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
-            .then((data) => callback(data))
+            .then((data: unknown) => {
+                if (!validateResponse(data)) {
+                    throw new Error(`Invalid response received from ${endpoint}`);
+                }
+
+                callback(data);
+            })
             .catch((err) => console.error(err));
     }
 }

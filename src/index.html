@@ -1,29 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>NewsPortal</title>
+        <meta name="theme-color" content="#f4f3ef" />
+        <meta name="description" content="A curated news reader bringing stories from trusted publishers together." />
+        <title>Daily Brief — News Portal</title>
     </head>
     <body>
         <header>
-            <h1>News Portal</h1>
+            <div class="masthead">
+                <p class="masthead__eyebrow">A clearer view of the day</p>
+                <h1>Daily Brief<span>.</span></h1>
+                <p class="masthead__note">Stories from sources worth reading.</p>
+            </div>
         </header>
         <main>
-            <div class="sources buttons"></div>
-            <div class="news"></div>
+            <section class="source-section" aria-labelledby="sources-heading">
+                <div class="section-heading">
+                    <p class="section-heading__eyebrow">Explore</p>
+                    <h2 id="sources-heading">Choose a source</h2>
+                </div>
+                <div class="sources buttons" aria-label="News sources"></div>
+            </section>
+            <section class="news-section" aria-labelledby="news-heading">
+                <div class="section-heading section-heading--news">
+                    <p class="section-heading__eyebrow">The latest</p>
+                    <h2 id="news-heading">Top stories</h2>
+                </div>
+                <div class="news" aria-live="polite"></div>
+            </section>
         </main>
         <footer>
-            <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
-            </p>
+            <div class="footer__inner">
+                <p class="footer__copyright">
+                    © 2026
+                    <a href="https://github.com/ArtiNabiullin" target="_blank" rel="noreferrer">Arti Nabiullin</a>
+                </p>
+                <p class="footer__credit">
+                    News data by <a href="https://newsapi.org" target="_blank" rel="noreferrer">NewsAPI</a>
+                </p>
+                <a
+                    class="footer__course"
+                    href="https://rs.school/courses/javascript"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Rolling Scopes School JavaScript course"
+                >
+                    <img src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg" alt="Rolling Scopes School" />
+                    <span>JavaScript course</span>
+                </a>
+            </div>
         </footer>
 
         <template id="sourceItemTemp">
-            <div class="source__item">
+            <button class="source__item" type="button">
                 <span class="source__item-name"></span>
-            </div>
+            </button>
         </template>
 
         <template id="newsItemTemp">

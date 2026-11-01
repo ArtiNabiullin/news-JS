@@ -1,35 +1,213 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    background: #f4f3ef;
+}
+
 body {
-    color: #fff;
-    background: #17181c;
-    font-family: sans-serif;
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    color: #182121;
+    background: #f4f3ef;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 header {
-    padding: 10px 30px;
+    padding: clamp(2rem, 6vw, 5rem) 1.25rem 2rem;
+    border-bottom: 1px solid #d9d9d2;
+    background: radial-gradient(ellipse at 86% 0%, rgb(230 104 66 / 13%), transparent 34rem), #fbfaf7;
 }
 
-header h1 {
-    font-size: 40px;
+.masthead,
+main,
+.footer__inner {
+    width: min(100% - 2.5rem, 1160px);
+    margin-inline: auto;
+}
+
+.masthead__eyebrow,
+.section-heading__eyebrow {
+    margin: 0 0 0.6rem;
+    color: #b7472c;
+    font-size: 0.72rem;
     font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.masthead h1 {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.075em;
+    line-height: 0.95;
+}
+
+.masthead h1 span {
+    color: #d65b3b;
+}
+
+.masthead__note {
+    margin: 1rem 0 0;
+    color: #66706b;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+main {
+    padding-block: 2rem 4rem;
+}
+
+.source-section {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #d9d9d2;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    letter-spacing: -0.04em;
+}
+
+.section-heading__eyebrow {
+    margin-bottom: 0.35rem;
+    font-size: 0.65rem;
+}
+
+.sources {
+    display: flex;
+    gap: 0.65rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.25rem 0 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: #b9b9af transparent;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+}
+
+.source__item {
+    flex: 0 0 auto;
+    max-width: min(18rem, 78vw);
+    padding: 0.75rem 1rem;
+    overflow: hidden;
+    border: 1px solid #c9cbc3;
+    border-radius: 999px;
+    color: #38433e;
+    background: #fff;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+}
+
+.source__item:hover,
+.source__item:focus-visible {
+    border-color: #182121;
+    color: #fff;
+    background: #182121;
+    transform: translateY(-2px);
+}
+
+.source__item:focus-visible,
+a:focus-visible {
+    outline: 3px solid #d65b3b;
+    outline-offset: 3px;
+}
+
+.news-section {
+    padding-top: 2rem;
+}
+
+.section-heading--news {
+    margin-bottom: 1.25rem;
 }
 
 footer {
-    height: 100px;
+    padding: 1.5rem 1.25rem;
+    border-top: 1px solid #d9d9d2;
+    color: #626c67;
+    background: #ebeae5;
+}
+
+.footer__inner {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
-footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+
+.footer__copyright,
+.footer__credit {
+    margin: 0;
+    font-size: 0.82rem;
 }
-footer .copyright a {
-    color: #444;
+
+.footer__copyright a,
+.footer__credit a {
+    color: #182121;
+    font-weight: 700;
 }
-footer .copyright a:hover {
-    color: #555;
+
+.footer__course {
+    display: inline-flex;
+    gap: 0.65rem;
+    align-items: center;
+    color: #182121;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
 }
-footer .copyright:before {
-    content: '©';
+
+.footer__course img {
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+@media (max-width: 540px) {
+    .masthead,
+    main,
+    .footer__inner {
+        width: min(100% - 2rem, 1160px);
+    }
+
+    header {
+        padding-top: 2.5rem;
+    }
+
+    main {
+        padding-top: 1.5rem;
+    }
+
+    .footer__inner {
+        justify-content: flex-start;
+    }
+
+    .footer__course {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }

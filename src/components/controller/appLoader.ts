@@ -2,7 +2,8 @@ import Loader from './loader';
 
 class AppLoader extends Loader {
     constructor() {
-        const { API_URL, API_KEY } = process.env;
+        const API_URL = process.env.API_URL;
+        const API_KEY = process.env.API_KEY;
 
         if (!API_URL || !API_KEY) {
             throw new Error('Missing API_URL or API_KEY environment variable');
